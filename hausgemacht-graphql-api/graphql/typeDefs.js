@@ -5,6 +5,15 @@ const typeDefs = gql`
     recipes: [Recipe]!
   }
 
+  type Mutation {
+    createRecipe(
+      title: String!
+      description: String!
+      diet: String!
+      duration: Int!
+    ): Recipe
+  }
+
   type Recipe {
     _id: ID!
     title: String!
@@ -14,7 +23,7 @@ const typeDefs = gql`
     diet: Diet!
     created: String!
     photoURL: String
-    Ingredients: [Ingredient]!
+    ingredients: [Ingredient]!
   }
 
   type Ingredient {

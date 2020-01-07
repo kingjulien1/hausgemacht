@@ -10,4 +10,12 @@ const server = new ApolloServer({
 });
 
 server.applyMiddleware({ app });
-app.listen(4001, () => {});
+app.listen(4001, () => {
+  mongoose.connect("mongodb://127.0.0.1:27017/hausgemacht-db", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  });
+});
+
+console.log("hausgemacht-graphql-api up and running on port 4001 👩‍🍳");

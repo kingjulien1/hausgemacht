@@ -1,6 +1,19 @@
 const { Schema } = require("mongoose");
 
-const recipe = new Schema({
+const Ingredient = new Schema({
+  title: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  unit: {
+    type: String,
+    required: true,
+    enum: ["grams", "litres", "teaspoon", "tablespoon", "piece"]
+  }
+});
+
+const Recipe = new Schema({
   title: {
     type: String,
     required: true,
@@ -21,21 +34,8 @@ const recipe = new Schema({
     default: Date.now
   },
   photoURL: String,
-  ingridients: [ingredient]
+  ingredients: [Ingredient]
 });
 
-const ingredient = new Schema({
-  title: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  unit: {
-    type: String,
-    required: true,
-    enum: ["grams", "litres", "teaspoon", "tablespoon", "piece"]
-  }
-});
-
-module.exports.recipeSchema = recipe;
-module.exports.ingredientSchema = ingridient;
+module.exports.RecipeSchema = Recipe;
+module.exports.IngredientSchema = Ingredient;
