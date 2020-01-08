@@ -37,6 +37,9 @@ const resolvers = {
     addIngredient(_, { _recipeId, title, unit, amount }) {
       let ingredient = new Ingredient({ _recipeId, title, unit, amount });
       return ingredient.save();
+    },
+    uploadPhoto(_, { _recipeId, photo }) {
+      console.log(photo);
     }
   }
 };

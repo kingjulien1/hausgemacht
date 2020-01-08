@@ -1,6 +1,9 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  scalar Date
+  scalar Upload
+
   type Query {
     recipes: [Recipe]!
     recipe(_id: ID!): [Recipe]!
@@ -19,6 +22,7 @@ const typeDefs = gql`
       unit: Unit!
       amount: Int!
     ): Ingredient
+    uploadPhoto(_recipeId: ID!, photo: Upload!): Photo
   }
 
   type Recipe {
@@ -28,7 +32,7 @@ const typeDefs = gql`
     type: String!
     duration: Int!
     diet: Diet!
-    created: String!
+    created: Date!
     photoURL: String
     ingredients: [Ingredient]!
   }
@@ -38,6 +42,11 @@ const typeDefs = gql`
     title: String!
     unit: Unit!
     amount: Float!
+  }
+
+  type Photo {
+    filename: String!
+    encoding: String!
   }
 
   enum Unit {

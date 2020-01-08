@@ -3,8 +3,11 @@ const schema = require("./graphql/schema");
 const express = require("express");
 const mongoose = require("mongoose");
 const { LOCALHOST_URI } = require("./mongoose/config");
+const { apolloUploadExpress } = require("apollo-upload-server");
 
 const app = express();
+app.use(apolloUploadExpress({ maxFileSize: 10000000, maxFiles: 1 }));
+
 const server = new ApolloServer({
   schema,
   playground: true
