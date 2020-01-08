@@ -2,7 +2,7 @@ const { ApolloServer } = require("apollo-server-express");
 const schema = require("./graphql/schema");
 const express = require("express");
 const mongoose = require("mongoose");
-const { MLAB_URI } = require("./mongoose/config");
+const { LOCALHOST_URI } = require("./mongoose/config");
 
 const app = express();
 const server = new ApolloServer({
@@ -13,7 +13,7 @@ const server = new ApolloServer({
 server.applyMiddleware({ app });
 app.listen(4001, () => {
   mongoose
-    .connect(MLAB_URI, {
+    .connect(LOCALHOST_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true

@@ -1,5 +1,48 @@
-const { RecipeSchema, IngredientSchema } = require("./schema");
-const { model } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
-module.exports.Recipe = model("recipe", RecipeSchema);
-module.exports.Recipe = model("ingredient", IngredientSchema);
+const Ingredient = new Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  unit: {
+    type: String,
+    required: true,
+    enum: ["grams", "litres", "teaspoon", "tablespoon", "piece"]
+  },
+  amount: {
+    type: Number,
+    required: true,
+    min: 0
+  },
+  _recipeId: {
+    type: Schema.Types.ObjectId,
+    required: true
+  }
+});
+
+const Recipe = new Schema({
+  title: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  description: String,
+  diet: {
+    type: String,
+    required: true,
+    enum: ["vegan", "vegeterian", "pesceterian", "flexeterian"]
+  },
+  duration: {
+    type: Number,
+    required: true
+  },
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  photoURL: String
+});
+
+module.exports.Recipe = model("recipe", Recipe);
+module.exports.Ingredient = model("ingredient", Ingredient);
