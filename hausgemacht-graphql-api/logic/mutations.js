@@ -10,3 +10,9 @@ module.exports.createRecipe = async ({
   let result = await recipe.save();
   return result;
 };
+
+module.exports.createIngredient = async ({ recipeId, title, unit, amount }) => {
+  let recipe = await Recipe.findOne(recipeId);
+  let ingredient = new Ingredient({ title, unit, amount });
+  recipe.ingredients.push(ingredient);
+};

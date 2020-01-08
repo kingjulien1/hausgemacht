@@ -30,7 +30,7 @@ const typeDefs = gql`
     _id: ID!
     title: String!
     unit: Unit!
-    amount: Int!
+    amount: Float!
   }
 
   enum Unit {

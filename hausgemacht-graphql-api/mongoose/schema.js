@@ -10,6 +10,11 @@ const Ingredient = new Schema({
     type: String,
     required: true,
     enum: ["grams", "litres", "teaspoon", "tablespoon", "piece"]
+  },
+  amount: {
+    type: Number,
+    required: true,
+    min: 0
   }
 });
 
