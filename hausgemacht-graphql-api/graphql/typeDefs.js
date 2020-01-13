@@ -7,6 +7,7 @@ const typeDefs = gql`
   type Query {
     recipes: [Recipe]!
     recipe(_id: ID!): [Recipe]!
+    ingredients: [Element]!
   }
 
   type Mutation {
@@ -39,9 +40,14 @@ const typeDefs = gql`
 
   type Ingredient {
     _id: ID!
+    amount: Float!
     title: String!
     unit: Unit!
-    amount: Float!
+  }
+
+  type Element {
+    title: String!
+    unit: Unit!
   }
 
   type Photo {

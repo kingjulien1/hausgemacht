@@ -1,6 +1,11 @@
 const { Schema, model } = require("mongoose");
 
 const Ingredient = new Schema({
+  amount: {
+    type: Number,
+    required: true,
+    min: 0
+  },
   title: {
     type: String,
     required: true
@@ -9,11 +14,6 @@ const Ingredient = new Schema({
     type: String,
     required: true,
     enum: ["grams", "litres", "teaspoon", "tablespoon", "piece"]
-  },
-  amount: {
-    type: Number,
-    required: true,
-    min: 0
   },
   _recipeId: {
     type: Schema.Types.ObjectId,

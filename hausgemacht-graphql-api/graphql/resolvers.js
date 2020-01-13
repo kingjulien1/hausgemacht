@@ -27,6 +27,16 @@ const resolvers = {
         },
         { $match: { _id: Types.ObjectId(_id) } }
       ]).exec();
+    },
+    ingredients() {
+      return Ingredient.aggregate([
+        {
+          $group: { _id: { title: "$title", unit: "$unit" } }
+        },
+        {
+          $project: { title: "$_id.title", unit: "$_id.unit" }
+        }
+      ]).exec();
     }
   },
   Mutation: {
