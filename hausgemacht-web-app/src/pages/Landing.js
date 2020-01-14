@@ -4,12 +4,12 @@ import Recipes from "../components/data-display/recipe/All";
 
 export default function Landing() {
   return (
-    <Layout>
+    <Layout.Content style={{ backgroundColor: "white" }}>
       <PageHeader
         title="Hausgemacht"
         subTitle="ein Platz für Familienrezepte"
       ></PageHeader>
       <Recipes></Recipes>
-    </Layout>
+    </Layout.Content>
   );
 }

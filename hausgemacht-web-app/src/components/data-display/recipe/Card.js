@@ -6,6 +6,7 @@ const Recipe = ({ recipe }) => {
   return (
     <CardLayout>
       <Card
+        hoverable
         cover={
           <img
             alt="kein Bild für dieses Rezept vorhanden"
@@ -15,7 +16,11 @@ const Recipe = ({ recipe }) => {
       >
         <Card.Meta
           title={recipe.title}
-          description={recipe.description}
+          description={
+            recipe.description.length > 15
+              ? `${recipe.description.substring(0, 15)}...`
+              : recipe.description
+          }
         ></Card.Meta>
       </Card>
     </CardLayout>
