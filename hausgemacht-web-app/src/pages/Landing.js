@@ -1,11 +1,15 @@
 import React from "react";
-import { PageHeader } from "antd";
+import { PageHeader, Layout } from "antd";
+import Recipes from "../components/data-display/recipe/All";
 
 export default function Landing() {
   return (
-    <PageHeader
-      title="Hausgemacht"
-      subTitle="ein Platz für Familienrezepte"
-    ></PageHeader>
+    <Layout>
+      <PageHeader
+        title="Hausgemacht"
+        subTitle="ein Platz für Familienrezepte"
+      ></PageHeader>
+      <Recipes></Recipes>
+    </Layout>
   );
 }
