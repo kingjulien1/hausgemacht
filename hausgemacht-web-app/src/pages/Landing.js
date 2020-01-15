@@ -1,6 +1,6 @@
 import React from "react";
 import { PageHeader, Layout } from "antd";
-import Recipes from "../components/data-display/recipe/All";
+import Recipes from "../components/data-display/recipe";
 
 export default function Landing() {
   return (

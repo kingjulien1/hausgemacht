@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { Spin, Result, Empty } from "antd";
 
-import { Cards } from "./Card";
+import Table from "./Table";
 
 const query = gql`
   query {
@@ -11,6 +11,7 @@ const query = gql`
       _id
       title
       description
+      diet
       created
       photoURL
     }
@@ -25,9 +26,9 @@ export default () => {
       <Result
         status="error"
         title="Upps"
-        description="Rezepte konnten nicht geladen werden..."
+        subTitle={`Rezept konnte nicht geladen werden: ${error}`}
       ></Result>
     );
   if (data && data.length < 1) return <Empty></Empty>;
-  return <Cards recipes={data.recipes}></Cards>;
+  return <Table recipes={data.recipes}></Table>;
 };

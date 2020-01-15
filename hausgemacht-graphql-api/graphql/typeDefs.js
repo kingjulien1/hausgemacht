@@ -67,7 +67,7 @@ const typeDefs = gql`
     vegan
     vegeterian
     pesceterian
-    flexitarian
+    flexeterian
   }
 `;
 module.exports = typeDefs;
