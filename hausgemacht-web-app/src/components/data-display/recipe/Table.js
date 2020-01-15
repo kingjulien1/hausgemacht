@@ -52,7 +52,7 @@ export default ({ recipes }) => {
           value: "vegan"
         }
       ],
-      filterMultiple: false,
+      filterMultiple: true,
       onFilter: (value, record) => record.diet.indexOf(value) === 0,
       sorter: (a, b) => sortStr(a.diet, b.diet),
       sortDirections: ["descend", "ascend"]

@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Landing from "./pages/Landing";
 import Layout from "./layouts/Layout";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import Router from "./router";
 
 const client = new ApolloClient({
   uri: "http://localhost:4001/graphql"
@@ -12,7 +12,7 @@ const client = new ApolloClient({
 const Hausgemacht = () => (
   <ApolloProvider client={client}>
     <Layout>
-      <Landing></Landing>
+      <Router></Router>
     </Layout>
   </ApolloProvider>
 );
