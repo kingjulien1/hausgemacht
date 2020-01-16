@@ -21,7 +21,7 @@ const typeDefs = gql`
       _recipeId: ID!
       title: String!
       unit: Unit!
-      amount: Int!
+      amount: Float!
     ): Ingredient
     uploadPhoto(_recipeId: ID!, photo: Upload!): Photo
   }

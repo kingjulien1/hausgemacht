@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { Spin, Result, Empty } from "antd";
 
-import Table from "./Table";
+import Table from "./table";
 
 const query = gql`
   query {
@@ -14,6 +14,12 @@ const query = gql`
       diet
       created
       photoURL
+      ingredients {
+        _id
+        title
+        unit
+        amount
+      }
     }
   }
 `;

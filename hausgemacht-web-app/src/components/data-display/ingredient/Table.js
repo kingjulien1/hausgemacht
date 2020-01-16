@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "antd";
-Array.sort
+
 const limitStr = (str, limit) =>
   str.length > limit ? `${str.substring(0, limit)}...` : str;
 
@@ -10,7 +10,7 @@ const sortStr = (a, b) => {
   return 0;
 };
 
-export default ({ recipes }) => {
+export default ({ ingredients }) => {
   const columns = [
     {
       title: "Titel",
@@ -21,48 +21,38 @@ export default ({ recipes }) => {
       sortDirections: ["descend", "ascend"]
     },
     {
-      title: "Beschreibung",
-      dataIndex: "description",
-      render: description => ({ children: limitStr(description, 20) })
-    },
-    {
-      title: "Erstellt",
-      dataIndex: "created",
-      sorter: (a, b) => new Date(a.created) > new Date(b.created),
-      render: created => ({
-        children: new Date(created).toLocaleDateString("de-DE", {
-          weekday: "long",
-          year: "numeric",
-          month: "long",
-          day: "numeric"
-        })
-      })
-    },
-    {
-      title: "Typ",
-      dataIndex: "diet",
+      title: "Einheit",
+      dataIndex: "unit",
       filters: [
         {
-          text: "Flexetarisch",
-          value: "flexeterian"
+          text: "Gramm",
+          value: "grams"
         },
         {
-          text: "Pescetarisch",
-          value: "pesceterian"
+          text: "Liter",
+          value: "litres"
         },
         {
-          text: "Vegetarisch",
-          value: "vegeterian"
+          text: "Teelöffel",
+          value: "teaspoon"
         },
         {
-          text: "Vegan",
-          value: "vegan"
+          text: "Esslöffel",
+          value: "tablespoon"
+        },
+        {
+          text: "Stück",
+          value: "piece"
         }
       ],
       filterMultiple: true,
       onFilter: (value, record) => record.diet.indexOf(value) === 0,
-      sorter: (a, b) => sortStr(a.diet, b.diet),
+      sorter: (a, b) => sortStr(a.unit, b.unit),
       sortDirections: ["descend", "ascend"]
+    },
+    {
+      title: "Menge",
+      dataIndex: "amount"
     }
   ];
 
@@ -70,7 +60,7 @@ export default ({ recipes }) => {
     <Table
       rowKey="_id"
       columns={columns}
-      dataSource={recipes}
+      dataSource={ingredients}
       onRow={({ _id }) => ({
         onClick: e => console.log(_id)
       })}
