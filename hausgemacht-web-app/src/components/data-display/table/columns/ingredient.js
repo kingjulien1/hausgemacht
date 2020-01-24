@@ -9,51 +9,40 @@ const title = {
   sortDirections: ["descend", "ascend"]
 };
 
-const description = {
-  title: "Beschreibung",
-  dataIndex: "description",
-  render: description => ({ children: limiter(description, 20) })
-};
-
-const created = {
-  title: "Erstellt",
-  dataIndex: "created",
-  sorter: (a, b) => new Date(a.created) > new Date(b.created),
-  render: created => ({
-    children: new Date(created).toLocaleDateString("de-DE", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    })
-  })
-};
-
-const diet = {
-  title: "Typ",
-  dataIndex: "diet",
+const unit = {
+  title: "Einheit",
+  dataIndex: "unit",
   filters: [
     {
-      text: "Flexetarisch",
-      value: "flexeterian"
+      text: "Gramm",
+      value: "grams"
     },
     {
-      text: "Pescetarisch",
-      value: "pesceterian"
+      text: "Liter",
+      value: "litres"
     },
     {
-      text: "Vegetarisch",
-      value: "vegeterian"
+      text: "Teelöffel",
+      value: "teaspoon"
     },
     {
-      text: "Vegan",
-      value: "vegan"
+      text: "tablespoon",
+      value: "Esslöffel"
+    },
+    {
+      text: "Stück",
+      value: "piece"
     }
   ],
   filterMultiple: true,
-  onFilter: (value, record) => record.diet.indexOf(value) === 0,
-  sorter: (a, b) => sorter(a.diet, b.diet),
+  onFilter: (value, record) => record.unit.indexOf(value) === 0,
+  sorter: (a, b) => sorter(a.unit, b.uni),
   sortDirections: ["descend", "ascend"]
 };
 
-export default [title, description, created, diet];
+const amount = {
+  title: "Menge",
+  dataIndex: "amount"
+};
+
+export default [title, amount, unit];

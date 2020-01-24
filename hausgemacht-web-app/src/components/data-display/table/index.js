@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Result } from "antd";
-import columns from "./columns/recipe";
+import recipeCols from "./columns/recipe";
+import ingredientCols from "./columns/ingredient";
 
 export const RecipeTable = ({ loading, error, recipes }) =>
   error ? (
@@ -12,7 +13,7 @@ export const RecipeTable = ({ loading, error, recipes }) =>
   ) : (
     <Table
       rowKey="_id"
-      columns={columns}
+      columns={recipeCols}
       loading={loading}
       dataSource={recipes}
       onRow={({ _id }) => ({})}
@@ -29,7 +30,7 @@ export const IngredientTable = ({ loading, error, ingredients }) =>
   ) : (
     <Table
       rowKey="_id"
-      columns={columns}
+      columns={ingredientCols}
       loading={loading}
       dataSource={ingredients}
       onRow={({ _id }) => ({})}

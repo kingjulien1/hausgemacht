@@ -1,3 +1,6 @@
+import { Link } from "react-router-dom";
+import React from "react";
+
 import { sorter, limiter } from "../functions";
 
 const title = {
@@ -9,23 +12,10 @@ const title = {
   sortDirections: ["descend", "ascend"]
 };
 
-const description = {
-  title: "Beschreibung",
-  dataIndex: "description",
-  render: description => ({ children: limiter(description, 20) })
-};
-
-const created = {
-  title: "Erstellt",
-  dataIndex: "created",
-  sorter: (a, b) => new Date(a.created) > new Date(b.created),
-  render: created => ({
-    children: new Date(created).toLocaleDateString("de-DE", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric"
-    })
+const actions = {
+  title: "Links",
+  render: recipe => ({
+    children: <Link to={`/ingredients/${recipe._id}`}>Zutaten</Link>
   })
 };
 
@@ -56,4 +46,4 @@ const diet = {
   sortDirections: ["descend", "ascend"]
 };
 
-export default [title, description, created, diet];
+export default [title, diet, actions];
