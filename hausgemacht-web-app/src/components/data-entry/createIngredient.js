@@ -1,11 +1,20 @@
 import React from "react";
-import { Form, Input, Button, Select, notification, InputNumber } from "antd";
+import {
+  Form,
+  Input,
+  Button,
+  Select,
+  notification,
+  InputNumber,
+  AutoComplete
+} from "antd";
 import { useForm, Controller } from "react-hook-form";
 import TextArea from "antd/lib/input/TextArea";
 import { useHistory } from "react-router-dom";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
+import { ADD_INGREDIENT } from "../../graphql/mutations";
+import { ALL_INGREDIENTS } from "../../graphql/queries";
 
-import { CREATE_RECIPE } from "../../graphql/mutations";
 const { Option } = Select;
 
 const InputLayout = ({ name, input, control }) => (
@@ -19,12 +28,13 @@ const InputLayout = ({ name, input, control }) => (
 
 export default () => {
   const { control, handleSubmit } = useForm();
+  const [addIngredient] = useMutation(ADD_INGREDIENT);
+  const { data } = useQuery(ALL_INGREDIENTS);
   const history = useHistory();
-  const [createRecipe, { data }] = useMutation(CREATE_RECIPE);
-  const onSubmit = async recipe => {
+  const onSubmit = async ingredient => {
     try {
-      await createRecipe({ variables: recipe });
-      history.push("/");
+      //await addIngredient({ variables: ingredient });
+      console.log(ingredient);
     } catch (error) {
       notification.error(error);
     }
@@ -34,18 +44,21 @@ export default () => {
       <InputLayout
         control={control}
         name="title"
-        input={<Input placeholder="Titel" />}
+        input={
+          <AutoComplete
+            dataSource={data && data.ingredients.map(({ title }) => title)}
+            filterOption={(inputValue, option) =>
+              option.props.children
+                .toUpperCase()
+                .indexOf(inputValue.toUpperCase()) !== -1
+            }
+          ></AutoComplete>
+        }
       ></InputLayout>
       <InputLayout
         control={control}
-        name="description"
-        input={
-          <TextArea
-            autoSize
-            placeholder="Beschreibung"
-            autoSize={{ minRows: 2, maxRows: 6 }}
-          ></TextArea>
-        }
+        name="unit"
+        input={<InputNumber></InputNumber>}
       ></InputLayout>
       <InputLayout
         control={control}
@@ -61,17 +74,15 @@ export default () => {
       ></InputLayout>
       <InputLayout
         control={control}
-        name="duration"
-        input={
-          <InputNumber placeholder="Zeit" addonAfter="Minuten"></InputNumber>
-        }
+        name="ampount"
+        input={<InputNumber placeholder="Menge"></InputNumber>}
       ></InputLayout>
       <Button
         type="submit"
         onClick={handleSubmit(onSubmit)}
         style={{ margin: "1rem" }}
       >
-        Erstellen
+        Hinzufügen
       </Button>
     </Form>
   );

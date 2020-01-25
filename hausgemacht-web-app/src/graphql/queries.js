@@ -13,6 +13,15 @@ export const ALL_RECIPES = gql`
   }
 `;
 
+export const ALL_INGREDIENTS = gql`
+  query {
+    ingredients {
+      title
+      unit
+    }
+  }
+`;
+
 export const RECIPE = gql`
   query($_id: ID!) {
     recipe(_id: $_id) {

@@ -30,7 +30,7 @@ const typeDefs = gql`
     _id: ID!
     title: String!
     description: String!
-    type: String!
+    type: String
     duration: Int!
     diet: Diet!
     created: Date!
