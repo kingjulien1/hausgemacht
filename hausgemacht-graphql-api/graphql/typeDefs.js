@@ -23,6 +23,8 @@ const typeDefs = gql`
       unit: Unit!
       amount: Float!
     ): Ingredient
+    deleteRecipe(_id: ID!): OperationResult
+    deleteIngredient(_id: ID!, _recipeId: ID!): OperationResult
     uploadPhoto(_recipeId: ID!, photo: Upload!): Photo
   }
 
@@ -53,6 +55,13 @@ const typeDefs = gql`
   type Photo {
     filename: String!
     encoding: String!
+  }
+
+  type OperationResult {
+    n: Int
+    ok: Int
+    deletedCount: Int
+    updatedCount: Int
   }
 
   enum Unit {

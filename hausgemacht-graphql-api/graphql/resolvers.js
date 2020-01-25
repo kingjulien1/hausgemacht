@@ -48,6 +48,13 @@ const resolvers = {
       let ingredient = new Ingredient({ _recipeId, title, unit, amount });
       return ingredient.save();
     },
+    async deleteRecipe(_, { _id }) {
+      await Ingredient.deleteMany({ _recipeId: _id });
+      return Recipe.deleteOne({ _id }).exec();
+    },
+    deleteIngredient(_, { _id, _recipeId }) {
+      return Ingredient.deleteOne({ _id, _recipeId }).exec();
+    },
     uploadPhoto(_, { _recipeId, photo }) {
       console.log(photo);
     }
