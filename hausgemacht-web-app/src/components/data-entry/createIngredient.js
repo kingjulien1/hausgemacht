@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Form,
-  Input,
   Button,
   Select,
   notification,
@@ -9,8 +8,7 @@ import {
   AutoComplete
 } from "antd";
 import { useForm, Controller } from "react-hook-form";
-import TextArea from "antd/lib/input/TextArea";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_INGREDIENT } from "../../graphql/mutations";
 import { ALL_INGREDIENTS } from "../../graphql/queries";
@@ -27,14 +25,15 @@ const InputLayout = ({ name, input, control }) => (
 );
 
 export default () => {
-  const { control, handleSubmit } = useForm();
+  const { control, handleSubmit, setValue } = useForm();
   const [addIngredient] = useMutation(ADD_INGREDIENT);
   const { data } = useQuery(ALL_INGREDIENTS);
   const history = useHistory();
+  const { _recipeId } = useParams();
   const onSubmit = async ingredient => {
     try {
-      //await addIngredient({ variables: ingredient });
-      console.log(ingredient);
+      await addIngredient({ variables: { _recipeId, ...ingredient } });
+      history.goBack();
     } catch (error) {
       notification.error(error);
     }
@@ -52,29 +51,31 @@ export default () => {
                 .toUpperCase()
                 .indexOf(inputValue.toUpperCase()) !== -1
             }
+            onSelect={value => {
+              const { unit } = data.ingredients.find(
+                ({ title }) => title === value
+              );
+              setValue("unit", unit);
+            }}
           ></AutoComplete>
         }
       ></InputLayout>
       <InputLayout
         control={control}
         name="unit"
-        input={<InputNumber></InputNumber>}
-      ></InputLayout>
-      <InputLayout
-        control={control}
-        name="diet"
         input={
-          <Select placeholder="Typ">
-            <Option value="flexeterian">Flexetarisch</Option>
-            <Option value="pesceterian">Pescetarisch</Option>
-            <Option value="vegeterian">Vegetarisch</Option>
-            <Option value="vegan">Vegan</Option>
+          <Select placeholder="Einheit">
+            <Option value="grams">Gramm</Option>
+            <Option value="litres">Liter</Option>
+            <Option value="teaspoon">Teelöffel</Option>
+            <Option value="tablespoon">Esslöffel</Option>
+            <Option value="piece">Stück</Option>
           </Select>
         }
       ></InputLayout>
       <InputLayout
         control={control}
-        name="ampount"
+        name="amount"
         input={<InputNumber placeholder="Menge"></InputNumber>}
       ></InputLayout>
       <Button

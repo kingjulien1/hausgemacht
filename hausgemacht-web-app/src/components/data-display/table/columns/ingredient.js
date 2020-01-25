@@ -9,40 +9,9 @@ const title = {
   sortDirections: ["descend", "ascend"]
 };
 
-const unit = {
-  title: "Einheit",
-  dataIndex: "unit",
-  filters: [
-    {
-      text: "Gramm",
-      value: "grams"
-    },
-    {
-      text: "Liter",
-      value: "litres"
-    },
-    {
-      text: "Teelöffel",
-      value: "teaspoon"
-    },
-    {
-      text: "tablespoon",
-      value: "Esslöffel"
-    },
-    {
-      text: "Stück",
-      value: "piece"
-    }
-  ],
-  filterMultiple: true,
-  onFilter: (value, record) => record.unit.indexOf(value) === 0,
-  sorter: (a, b) => sorter(a.unit, b.uni),
-  sortDirections: ["descend", "ascend"]
-};
-
 const amount = {
   title: "Menge",
-  dataIndex: "amount"
+  render: ({ amount, unit }) => `${amount} ${unit}`
 };
 
-export default [title, amount, unit];
+export default [title, amount];

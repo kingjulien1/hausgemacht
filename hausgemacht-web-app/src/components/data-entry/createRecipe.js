@@ -20,7 +20,7 @@ const InputLayout = ({ name, input, control }) => (
 export default () => {
   const { control, handleSubmit } = useForm();
   const history = useHistory();
-  const [createRecipe, { data }] = useMutation(CREATE_RECIPE);
+  const [createRecipe] = useMutation(CREATE_RECIPE);
   const onSubmit = async recipe => {
     try {
       await createRecipe({ variables: recipe });
@@ -41,7 +41,6 @@ export default () => {
         name="description"
         input={
           <TextArea
-            autoSize
             placeholder="Beschreibung"
             autoSize={{ minRows: 2, maxRows: 6 }}
           ></TextArea>

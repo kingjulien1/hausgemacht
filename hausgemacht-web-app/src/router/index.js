@@ -3,8 +3,8 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import NotFound from "../pages/404NotFound";
 import Recipes from "../pages/Recipes";
 import Ingredients from "../pages/Ingredients";
-import createRecipe from "../pages/createIngredient";
-import createIngredient from "../components/data-entry/createIngredient";
+import createRecipe from "../pages/createRecipe"
+import createIngredient from "../pages/createIngredient"
 
 export default () => {
   return (
