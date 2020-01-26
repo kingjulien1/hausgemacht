@@ -30,3 +30,11 @@ export const ADD_INGREDIENT = gql`
     }
   }
 `;
+
+export const DELETE_INGREDIENT = gql`
+  mutation($_id: ID!, $_recipeId: ID!) {
+    deleteIngredient(_id: $_id, _recipeId: $_recipeId) {
+      deletedCount
+    }
+  }
+`;

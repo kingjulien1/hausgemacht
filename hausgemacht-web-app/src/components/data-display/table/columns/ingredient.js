@@ -1,4 +1,6 @@
+import React from "react";
 import { sorter, limiter } from "../functions";
+import { IngredientActions } from "./actions";
 
 const title = {
   title: "Titel",
@@ -14,4 +16,11 @@ const amount = {
   render: ({ amount, unit }) => `${amount} ${unit}`
 };
 
-export default [title, amount];
+const actions = {
+  title: "Links",
+  render: recipe => ({
+    children: <IngredientActions></IngredientActions>
+  })
+};
+
+export default [title, amount, actions];
