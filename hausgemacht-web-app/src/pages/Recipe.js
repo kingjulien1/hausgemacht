@@ -34,9 +34,8 @@ export default () => {
   const confirmDelete = () => {
     try {
       deleteRecipe({
-        variables: { _id: _recipeId },
-        onCompleted: console.log
-      });
+        variables: { _id: _recipeId }
+      }).then(() => push("/"));
     } catch (error) {
       notification.error(error);
     }
