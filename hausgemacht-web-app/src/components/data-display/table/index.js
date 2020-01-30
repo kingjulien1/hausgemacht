@@ -2,9 +2,11 @@ import React from "react";
 import { Table, Result } from "antd";
 import recipeCols from "./columns/recipe";
 import ingredientCols from "./columns/ingredient";
+import { useHistory } from "react-router-dom";
 
-export const RecipeTable = ({ loading, error, recipes }) =>
-  error ? (
+export const RecipeTable = ({ loading, error, recipes }) => {
+  const history = useHistory();
+  return error ? (
     <Result
       status="error"
       title="Upps"
@@ -16,9 +18,10 @@ export const RecipeTable = ({ loading, error, recipes }) =>
       columns={recipeCols}
       loading={loading}
       dataSource={recipes}
-      onRow={({ _id }) => ({})}
+      onRow={({ _id }) => ({ onClick: () => history.push(`recipe/${_id}`) })}
     ></Table>
   );
+};
 
 export const IngredientTable = ({ loading, error, ingredients }) =>
   error ? (
@@ -33,6 +36,5 @@ export const IngredientTable = ({ loading, error, ingredients }) =>
       columns={ingredientCols}
       loading={loading}
       dataSource={ingredients}
-      onRow={({ _id }) => ({})}
     ></Table>
   );

@@ -46,4 +46,4 @@ const diet = {
   sortDirections: ["descend", "ascend"]
 };
 
-export default [title, diet, actions];
+export default [title, diet];

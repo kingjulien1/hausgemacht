@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ApolloProvider } from "@apollo/react-hooks";
 
 import Layout from "./layouts/Layout";
 import Router from "./router";
-import { client } from "./graphql";
+import { Provider as ApolloProvider } from "./graphql";
 
 const Hausgemacht = () => (
-  <ApolloProvider client={client}>
+  <ApolloProvider>
     <Layout>
       <Router></Router>
     </Layout>

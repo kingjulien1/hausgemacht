@@ -3,8 +3,9 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import NotFound from "../pages/404NotFound";
 import Recipes from "../pages/Recipes";
 import Ingredients from "../pages/Ingredients";
-import createRecipe from "../pages/createRecipe"
-import createIngredient from "../pages/createIngredient"
+import createRecipe from "../pages/createRecipe";
+import createIngredient from "../pages/createIngredient";
+import Recipe from "../pages/Recipe";
 
 export default () => {
   return (
@@ -16,6 +17,7 @@ export default () => {
           exact
           component={Ingredients}
         ></Route>
+        <Route path="/recipe/:_recipeId" exact component={Recipe}></Route>
         <Route path="/create_recipe" exact component={createRecipe}></Route>
         <Route
           path="/create_ingredient/:_recipeId"

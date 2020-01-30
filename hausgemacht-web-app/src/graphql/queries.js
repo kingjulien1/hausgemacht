@@ -25,6 +25,12 @@ export const ALL_INGREDIENTS = gql`
 export const RECIPE = gql`
   query($_id: ID!) {
     recipe(_id: $_id) {
+      title
+      description
+      diet
+      duration
+      created
+      photoURL
       ingredients {
         _id
         title
