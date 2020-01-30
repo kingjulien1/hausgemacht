@@ -25,7 +25,9 @@ export default () => {
   ] = useState({});
   const { _recipeId } = useParams();
   const { goBack, push } = useHistory();
-  const [deleteRecipe] = useMutation(DELETE_RECIPE);
+  const [deleteRecipe] = useMutation(DELETE_RECIPE, {
+    onCompleted: () => push("/")
+  });
   useQuery(RECIPE, {
     variables: { _id: _recipeId },
     onCompleted: data => setRecipe(data.recipe[0])
@@ -35,7 +37,7 @@ export default () => {
     try {
       deleteRecipe({
         variables: { _id: _recipeId }
-      }).then(() => push("/"));
+      });
     } catch (error) {
       notification.error(error);
     }

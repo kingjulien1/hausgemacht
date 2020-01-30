@@ -19,12 +19,15 @@ const InputLayout = ({ name, input, control }) => (
 
 export default () => {
   const { control, handleSubmit } = useForm();
-  const history = useHistory();
-  const [createRecipe] = useMutation(CREATE_RECIPE);
+  const { push } = useHistory();
+  const [createRecipe] = useMutation(CREATE_RECIPE, {
+    onCompleted() {
+      push("/");
+    }
+  });
   const onSubmit = async recipe => {
     try {
-      await createRecipe({ variables: recipe });
-      history.push("/");
+      createRecipe({ variables: recipe });
     } catch (error) {
       notification.error(error);
     }
