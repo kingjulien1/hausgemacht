@@ -7,13 +7,16 @@ import {
   Divider,
   Popconfirm,
   Icon,
-  Button
+  Button,
+  notification
 } from "antd";
-import { useQuery } from "@apollo/react-hooks";
-import { RECIPE } from "../graphql/queries";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useParams, useHistory } from "react-router-dom";
+
 import Photo from "../components/data-display/Photo";
 import { RecipeList } from "../components/data-display/list";
+import { RECIPE } from "../graphql/queries";
+import { DELETE_RECIPE } from "../graphql/mutations";
 
 export default () => {
   const [
@@ -21,11 +24,24 @@ export default () => {
     setRecipe
   ] = useState({});
   const { _recipeId } = useParams();
-  const { goBack } = useHistory();
-  const { loading, error } = useQuery(RECIPE, {
+  const { goBack, push } = useHistory();
+  const [deleteRecipe] = useMutation(DELETE_RECIPE);
+  useQuery(RECIPE, {
     variables: { _id: _recipeId },
     onCompleted: data => setRecipe(data.recipe[0])
   });
+
+  const confirmDelete = () => {
+    try {
+      deleteRecipe({
+        variables: { _id: _recipeId },
+        onCompleted: console.log
+      });
+    } catch (error) {
+      notification.error(error);
+    }
+  };
+
   return (
     <Layout style={{ backgroundColor: "white" }}>
       <Layout.Content>
@@ -40,6 +56,7 @@ export default () => {
               title={`${title} Löschen?`}
               icon={<Icon type="delete" />}
               placement="bottomRight"
+              onConfirm={confirmDelete}
             >
               <Button>Löschen</Button>
             </Popconfirm>

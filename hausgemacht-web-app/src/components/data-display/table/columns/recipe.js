@@ -1,6 +1,3 @@
-import { Link } from "react-router-dom";
-import React from "react";
-
 import { sorter, limiter } from "../functions";
 
 const title = {
@@ -10,13 +7,6 @@ const title = {
   sorter: (a, b) => sorter(a.title, b.title),
   render: title => ({ children: limiter(title, 15) }),
   sortDirections: ["descend", "ascend"]
-};
-
-const actions = {
-  title: "Links",
-  render: recipe => ({
-    children: <Link to={`/ingredients/${recipe._id}`}>Zutaten</Link>
-  })
 };
 
 const diet = {

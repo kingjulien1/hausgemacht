@@ -18,8 +18,8 @@ const amount = {
 
 const actions = {
   title: "Links",
-  render: recipe => ({
-    children: <IngredientActions></IngredientActions>
+  render: ({ _id }) => ({
+    children: <IngredientActions _id={_id}></IngredientActions>
   })
 };
 

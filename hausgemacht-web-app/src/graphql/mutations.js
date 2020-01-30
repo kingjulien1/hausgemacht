@@ -38,3 +38,11 @@ export const DELETE_INGREDIENT = gql`
     }
   }
 `;
+
+export const DELETE_RECIPE = gql`
+  mutation($_id: ID!) {
+    deleteRecipe(_id: $_id) {
+      deletedCount
+    }
+  }
+`;

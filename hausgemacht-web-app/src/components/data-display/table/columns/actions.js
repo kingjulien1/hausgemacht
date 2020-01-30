@@ -1,15 +1,23 @@
 import React from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { Button } from "antd";
+import { Button, notification } from "antd";
 import { DELETE_INGREDIENT } from "../../../../graphql/mutations";
+import { useParams, useHistory } from "react-router-dom";
 
-export const IngredientActions = ({ _id, _recipeId }) => {
+export const IngredientActions = ({ _id }) => {
   const [deleteIngredient] = useMutation(DELETE_INGREDIENT);
+  const { go } = useHistory();
+  const { _recipeId } = useParams();
   return (
     <Button
       type="link"
       onClick={async () => {
-        await deleteIngredient({ variables: { _id, _recipeId } });
+        try {
+          await deleteIngredient({ variables: { _id, _recipeId } });
+          go(0);
+        } catch (error) {
+          notification.error(error);
+        }
       }}
     >
       Löschen
