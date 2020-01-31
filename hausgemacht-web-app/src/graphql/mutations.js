@@ -14,6 +14,12 @@ export const CREATE_RECIPE = gql`
       duration: $duration
     ) {
       _id
+      title
+      description
+      diet
+      duration
+      created
+      photoURL
     }
   }
 `;
@@ -27,6 +33,9 @@ export const ADD_INGREDIENT = gql`
       amount: $amount
     ) {
       _id
+      title
+      unit
+      amount
     }
   }
 `;

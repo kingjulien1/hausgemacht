@@ -7,8 +7,15 @@ export const ALL_RECIPES = gql`
       title
       description
       diet
+      duration
       created
       photoURL
+      ingredients {
+        _id
+        title
+        unit
+        amount
+      }
     }
   }
 `;

@@ -11,7 +11,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useHistory, useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import { ADD_INGREDIENT } from "../../graphql/mutations";
-import { ALL_INGREDIENTS } from "../../graphql/queries";
+import { ALL_INGREDIENTS, RECIPE } from "../../graphql/queries";
 
 const { Option } = Select;
 
@@ -32,7 +32,31 @@ export default () => {
   const { _recipeId } = useParams();
   const onSubmit = async ingredient => {
     try {
-      await addIngredient({ variables: { _recipeId, ...ingredient } });
+      //mutate api
+      await addIngredient({
+        variables: { _recipeId, ...ingredient },
+        update: (cache, { data: { addIngredient } }) => {
+          let {
+            recipe: [first]
+          } = cache.readQuery({
+            query: RECIPE,
+            variables: { _id: _recipeId }
+          });
+          //update cache
+          cache.writeQuery({
+            query: RECIPE,
+            variables: { _id: _recipeId },
+            data: {
+              recipe: [
+                {
+                  ...first,
+                  ingredients: [...first.ingredients, addIngredient]
+                }
+              ]
+            }
+          });
+        }
+      });
       history.goBack();
     } catch (error) {
       notification.error(error);

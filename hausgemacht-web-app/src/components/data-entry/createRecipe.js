@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 
 import { CREATE_RECIPE } from "../../graphql/mutations";
+import { ALL_RECIPES } from "../../graphql/queries";
 const { Option } = Select;
 
 const InputLayout = ({ name, input, control }) => (
@@ -25,9 +26,23 @@ export default () => {
       push("/");
     }
   });
-  const onSubmit = async recipe => {
+  const onSubmit = recipe => {
     try {
-      createRecipe({ variables: recipe });
+      createRecipe({
+        variables: { ...recipe },
+        update: (cache, { data: { createRecipe } }) => {
+          let { recipes } = cache.readQuery({
+            query: ALL_RECIPES
+          });
+          //update cache
+          cache.writeQuery({
+            query: ALL_RECIPES,
+            data: {
+              recipes: [...recipes, { ...createRecipe, ingredients: [] }]
+            }
+          });
+        }
+      });
     } catch (error) {
       notification.error(error);
     }

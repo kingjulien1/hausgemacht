@@ -15,14 +15,14 @@ import { useParams, useHistory } from "react-router-dom";
 
 import Photo from "../components/data-display/Photo";
 import { RecipeList } from "../components/data-display/list";
-import { RECIPE } from "../graphql/queries";
+import { RECIPE, ALL_RECIPES } from "../graphql/queries";
 import { DELETE_RECIPE } from "../graphql/mutations";
 
 export default () => {
   const [
     { title, description, diet, duration, created, photoURL, ingredients },
     setRecipe
-  ] = useState({});
+  ] = useState();
   const { _recipeId } = useParams();
   const { goBack, push } = useHistory();
   const [deleteRecipe] = useMutation(DELETE_RECIPE, {
@@ -36,7 +36,19 @@ export default () => {
   const confirmDelete = () => {
     try {
       deleteRecipe({
-        variables: { _id: _recipeId }
+        variables: { _id: _recipeId },
+        update: cache => {
+          let { recipes } = cache.readQuery({
+            query: ALL_RECIPES
+          });
+          //update cache
+          cache.writeQuery({
+            query: ALL_RECIPES,
+            data: {
+              recipes: recipes.filter(recipe => recipe._id !== _recipeId)
+            }
+          });
+        }
       });
     } catch (error) {
       notification.error(error);
