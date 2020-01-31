@@ -24,7 +24,8 @@ export default () => {
   const [createRecipe] = useMutation(CREATE_RECIPE, {
     onCompleted() {
       push("/");
-    }
+    },
+    onError: notification.error
   });
   const onSubmit = recipe => {
     try {

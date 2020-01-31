@@ -2,7 +2,7 @@ import React from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { Button, notification } from "antd";
 import { DELETE_INGREDIENT } from "../../../../graphql/mutations";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { RECIPE } from "../../../../graphql/queries";
 
 export const IngredientActions = ({ _id }) => {

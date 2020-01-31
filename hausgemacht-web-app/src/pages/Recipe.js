@@ -22,7 +22,7 @@ export default () => {
   const [
     { title, description, diet, duration, created, photoURL, ingredients },
     setRecipe
-  ] = useState();
+  ] = useState({});
   const { _recipeId } = useParams();
   const { goBack, push } = useHistory();
   const [deleteRecipe] = useMutation(DELETE_RECIPE, {
@@ -30,7 +30,8 @@ export default () => {
   });
   useQuery(RECIPE, {
     variables: { _id: _recipeId },
-    onCompleted: data => setRecipe(data.recipe[0])
+    onCompleted: data => setRecipe(data.recipe[0]),
+    onError: () => push("/404")
   });
 
   const confirmDelete = () => {
