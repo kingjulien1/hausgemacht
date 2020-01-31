@@ -26,41 +26,39 @@ const InputLayout = ({ name, input, control }) => (
 
 export default () => {
   const { control, handleSubmit, setValue } = useForm();
-  const [addIngredient] = useMutation(ADD_INGREDIENT);
+  const { goBack } = useHistory();
+  const [addIngredient] = useMutation(ADD_INGREDIENT, {
+    onCompleted: goBack,
+    onError: notification.error
+  });
   const { data } = useQuery(ALL_INGREDIENTS);
-  const history = useHistory();
   const { _recipeId } = useParams();
-  const onSubmit = async ingredient => {
-    try {
-      //mutate api
-      await addIngredient({
-        variables: { _recipeId, ...ingredient },
-        update: (cache, { data: { addIngredient } }) => {
-          let {
-            recipe: [first]
-          } = cache.readQuery({
-            query: RECIPE,
-            variables: { _id: _recipeId }
-          });
-          //update cache
-          cache.writeQuery({
-            query: RECIPE,
-            variables: { _id: _recipeId },
-            data: {
-              recipe: [
-                {
-                  ...first,
-                  ingredients: [...first.ingredients, addIngredient]
-                }
-              ]
-            }
-          });
-        }
-      });
-      history.goBack();
-    } catch (error) {
-      notification.error(error);
-    }
+  const onSubmit = ingredient => {
+    //mutate api
+    addIngredient({
+      variables: { _recipeId, ...ingredient },
+      update: (cache, { data: { addIngredient } }) => {
+        let {
+          recipe: [first]
+        } = cache.readQuery({
+          query: RECIPE,
+          variables: { _id: _recipeId }
+        });
+        //update cache
+        cache.writeQuery({
+          query: RECIPE,
+          variables: { _id: _recipeId },
+          data: {
+            recipe: [
+              {
+                ...first,
+                ingredients: [...first.ingredients, addIngredient]
+              }
+            ]
+          }
+        });
+      }
+    });
   };
   return (
     <Form>

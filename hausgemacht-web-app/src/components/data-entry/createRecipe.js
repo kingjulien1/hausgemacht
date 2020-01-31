@@ -28,25 +28,21 @@ export default () => {
     onError: notification.error
   });
   const onSubmit = recipe => {
-    try {
-      createRecipe({
-        variables: { ...recipe },
-        update: (cache, { data: { createRecipe } }) => {
-          let { recipes } = cache.readQuery({
-            query: ALL_RECIPES
-          });
-          //update cache
-          cache.writeQuery({
-            query: ALL_RECIPES,
-            data: {
-              recipes: [...recipes, { ...createRecipe, ingredients: [] }]
-            }
-          });
-        }
-      });
-    } catch (error) {
-      notification.error(error);
-    }
+    createRecipe({
+      variables: { ...recipe },
+      update: (cache, { data: { createRecipe } }) => {
+        let { recipes } = cache.readQuery({
+          query: ALL_RECIPES
+        });
+        //update cache
+        cache.writeQuery({
+          query: ALL_RECIPES,
+          data: {
+            recipes: [...recipes, { ...createRecipe, ingredients: [] }]
+          }
+        });
+      }
+    });
   };
   return (
     <Form>

@@ -26,7 +26,8 @@ export default () => {
   const { _recipeId } = useParams();
   const { goBack, push } = useHistory();
   const [deleteRecipe] = useMutation(DELETE_RECIPE, {
-    onCompleted: () => push("/")
+    onCompleted: () => push("/"),
+    onError: notification.error
   });
   useQuery(RECIPE, {
     variables: { _id: _recipeId },
@@ -35,25 +36,21 @@ export default () => {
   });
 
   const confirmDelete = () => {
-    try {
-      deleteRecipe({
-        variables: { _id: _recipeId },
-        update: cache => {
-          let { recipes } = cache.readQuery({
-            query: ALL_RECIPES
-          });
-          //update cache
-          cache.writeQuery({
-            query: ALL_RECIPES,
-            data: {
-              recipes: recipes.filter(recipe => recipe._id !== _recipeId)
-            }
-          });
-        }
-      });
-    } catch (error) {
-      notification.error(error);
-    }
+    deleteRecipe({
+      variables: { _id: _recipeId },
+      update: cache => {
+        let { recipes } = cache.readQuery({
+          query: ALL_RECIPES
+        });
+        //update cache
+        cache.writeQuery({
+          query: ALL_RECIPES,
+          data: {
+            recipes: recipes.filter(recipe => recipe._id !== _recipeId)
+          }
+        });
+      }
+    });
   };
 
   return (
