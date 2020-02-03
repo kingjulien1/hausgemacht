@@ -2,7 +2,6 @@ const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   scalar Date
-  scalar Upload
 
   type Query {
     recipes: [Recipe]!
@@ -25,7 +24,7 @@ const typeDefs = gql`
     ): Ingredient
     deleteRecipe(_id: ID!): OperationResult
     deleteIngredient(_id: ID!, _recipeId: ID!): OperationResult
-    uploadPhoto(_recipeId: ID!, photo: Upload!): Photo
+    uploadPhoto(_recipeId: ID!, photo: File!): Photo
   }
 
   type Recipe {
@@ -77,6 +76,12 @@ const typeDefs = gql`
     vegeterian
     pesceterian
     flexeterian
+  }
+
+  type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
   }
 `;
 module.exports = typeDefs;

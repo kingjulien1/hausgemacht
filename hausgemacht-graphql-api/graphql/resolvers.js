@@ -55,8 +55,11 @@ const resolvers = {
     deleteIngredient(_, { _id, _recipeId }) {
       return Ingredient.deleteOne({ _id, _recipeId }).exec();
     },
-    uploadPhoto(_, { _recipeId, photo }) {
-      console.log(photo);
+    async uploadPhoto(_, { _recipeId, photo }) {
+      const { stream, filename, mimetype, encoding } = await file;
+
+      console.log(filename, stream);
+      return { stream, filename };
     }
   }
 };
