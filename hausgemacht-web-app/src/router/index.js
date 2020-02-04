@@ -6,20 +6,22 @@ import Ingredients from "../pages/Ingredients";
 import createRecipe from "../pages/createRecipe";
 import createIngredient from "../pages/createIngredient";
 import Recipe from "../pages/Recipe";
+import Home from "../pages/Home";
 
 export default () => {
   return (
     <Switch>
-      <Route path="/" exact component={Recipes}></Route>
+      <Route path="/" exact component={Home}></Route>
+      <Route path="/recipes" exact component={Recipes}></Route>
+      <Route path="/recipes/create" exact component={createRecipe}></Route>
       <Route
-        path="/ingredients/:_recipeId"
+        path="/recipes/:_recipeId/ingredients"
         exact
         component={Ingredients}
       ></Route>
-      <Route path="/recipe/:_recipeId" exact component={Recipe}></Route>
-      <Route path="/create_recipe" exact component={createRecipe}></Route>
+      <Route path="/recipes/:_recipeId" exact component={Recipe}></Route>
       <Route
-        path="/create_ingredient/:_recipeId"
+        path="/recipes/:_recipeId/ingredients/create"
         exact
         component={createIngredient}
       ></Route>

@@ -1,28 +1,21 @@
-const { ApolloServer } = require("apollo-server-express");
-const schema = require("./graphql/schema");
-const express = require("express");
-const mongoose = require("mongoose");
-const { LOCALHOST_URI } = require("./mongoose/config");
-const { apolloUploadExpress } = require("apollo-upload-server");
+const { ApolloServer } = require("apollo-server");
+const { connect } = require("mongoose");
 
-const app = express();
-app.use(apolloUploadExpress({ maxFileSize: 10000000, maxFiles: 1 }));
+const { LOCALHOST_URI, OPTIONS } = require("./mongoose/config");
+const resolvers = require("./graphql/resolvers");
+const typeDefs = require("./graphql/typeDefs");
 
 const server = new ApolloServer({
-  schema,
-  playground: true
+  resolvers,
+  typeDefs
 });
 
-server.applyMiddleware({ app });
-app.listen(4001, () => {
-  mongoose
-    .connect(LOCALHOST_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true
-    })
-    .then(console.log("connected to hausgemacht-db"))
-    .catch(console.error);
-});
-
-console.log("hausgemacht-graphql-api up and running on port 4000 👩‍🍳");
+//connect to db
+connect(LOCALHOST_URI, OPTIONS)
+  .then(ok => console.log(`connected to hausgemacht-db`))
+  .catch(err => console.error(`could not connect to db: ${err}`));
+//start server
+server
+  .listen()
+  .then(({ url }) => console.log(`🚀 Server ready at ${url}`))
+  .catch(err => console.error(`could not start server: ${err}`));

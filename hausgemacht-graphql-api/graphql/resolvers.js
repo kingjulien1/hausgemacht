@@ -1,5 +1,7 @@
 const { Recipe, Ingredient } = require("../mongoose/model");
 const { Types } = require("mongoose");
+const { createWriteStream } = require("fs");
+const { join, extname } = require("path");
 
 const resolvers = {
   Query: {
@@ -55,11 +57,18 @@ const resolvers = {
     deleteIngredient(_, { _id, _recipeId }) {
       return Ingredient.deleteOne({ _id, _recipeId }).exec();
     },
-    async uploadPhoto(_, { _recipeId, photo }) {
-      const { stream, filename, mimetype, encoding } = await file;
-
-      console.log(filename, stream);
-      return { stream, filename };
+    uploadPhoto: async (_, { _recipeId, photo }) => {
+      const { createReadStream, filename } = await photo;
+      //upload
+      const photoURL = join(
+        __dirname,
+        "../../hausgemacht-web-app/public/images/",
+        filename
+      );
+      await new Promise(res =>
+        createReadStream().pipe(createWriteStream(photoURL).on("close", res))
+      );
+      return photoURL;
     }
   }
 };

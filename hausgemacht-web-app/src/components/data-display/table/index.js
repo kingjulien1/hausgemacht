@@ -18,7 +18,7 @@ export const RecipeTable = ({ loading, error, recipes }) => {
       columns={recipeCols}
       loading={loading}
       dataSource={recipes}
-      onRow={({ _id }) => ({ onClick: () => history.push(`recipe/${_id}`) })}
+      onRow={({ _id }) => ({ onClick: () => history.push(`recipes/${_id}`) })}
     ></Table>
   );
 };

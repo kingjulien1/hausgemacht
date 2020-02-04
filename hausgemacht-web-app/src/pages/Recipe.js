@@ -26,13 +26,13 @@ export default () => {
   const { _recipeId } = useParams();
   const { goBack, push } = useHistory();
   const [deleteRecipe] = useMutation(DELETE_RECIPE, {
-    onCompleted: () => push("/"),
+    onCompleted: () => push("/recipes"),
     onError: notification.error
   });
   useQuery(RECIPE, {
     variables: { _id: _recipeId },
     onCompleted: data => setRecipe(data.recipe[0]),
-    onError: () => push("/404")
+    onError: err => notification.error(err)
   });
 
   const confirmDelete = () => {
@@ -83,7 +83,7 @@ export default () => {
           </Descriptions>
           {description}
         </PageHeader>
-        <Photo photoURL={photoURL}></Photo>
+        <Photo photoURL={photoURL} _recipeId={_recipeId}></Photo>
 
         <Divider></Divider>
         <h3 style={{ textAlign: "center", marginTop: 40 }}>Zutaten</h3>

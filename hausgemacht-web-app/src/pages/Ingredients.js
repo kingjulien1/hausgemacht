@@ -29,7 +29,9 @@ export default function Ingredients() {
       </Layout.Content>
       <Layout.Footer style={{ textAlign: "center" }}>
         <Button>
-          <Link to={`/create_ingredient/${_recipeId}`}>Neue Zutat</Link>
+          <Link to={`/recipes/${_recipeId}/ingredients/create`}>
+            Neue Zutat
+          </Link>
         </Button>
       </Layout.Footer>
     </Layout>

@@ -23,7 +23,7 @@ export default function Recipes() {
       </Layout.Content>
       <Layout.Footer style={{ textAlign: "center" }}>
         <Button>
-          <Link to="/create_recipe">Neues Rezept</Link>
+          <Link to="/recipes/create">Neues Rezept</Link>
         </Button>
       </Layout.Footer>
     </Layout>

@@ -6,7 +6,9 @@ export const RecipeList = ({ ingredients, _recipeId }) => (
   <List
     itemLayout="horizontal"
     dataSource={ingredients}
-    footer={<Link to={`/ingredients/${_recipeId}`}>Zutaten Bearbeiten</Link>}
+    footer={
+      <Link to={`/recipes/${_recipeId}/ingredients`}>Zutaten Bearbeiten</Link>
+    }
     style={{ padding: 50 }}
     renderItem={ingredient => (
       <List.Item key={ingredient._id}>

@@ -1,20 +1,19 @@
 import React from "react";
-import { Empty } from "antd";
 import { useMutation } from "@apollo/react-hooks";
-
 import { UPLOAD_PHOTO } from "../../graphql/mutations";
 import { RECIPE } from "../../graphql/queries";
 
-export default ({ _recipeId, photoURL }) => {
+export default ({ _recipeId, setUrl }) => {
   const [upload] = useMutation(UPLOAD_PHOTO);
   const onChange = ({
     target: {
       files: [file]
     }
-  }) =>
+  }) => {
     upload({
       variables: { _recipeId, photo: file },
       update: (cache, { data: { uploadPhoto } }) => {
+        setUrl(uploadPhoto);
         let {
           recipe: [first]
         } = cache.readQuery({
@@ -35,15 +34,7 @@ export default ({ _recipeId, photoURL }) => {
         });
       }
     });
+  };
 
-  return photoURL ? (
-    <img
-      src={photoURL}
-      alt={`unter dieser Url leider kein Bild gefunden`}
-    ></img>
-  ) : (
-    <Empty description="noch kein Bild hochgeladen.">
-      <input type="file" onChange={onChange} required></input>;{" "}
-    </Empty>
-  );
+  return <input type="file" onChange={onChange} required></input>;
 };

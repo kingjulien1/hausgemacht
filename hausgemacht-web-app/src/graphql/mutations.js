@@ -55,3 +55,9 @@ export const DELETE_RECIPE = gql`
     }
   }
 `;
+
+export const UPLOAD_PHOTO = gql`
+  mutation($_recipeId: ID!, $photo: Upload!) {
+    uploadPhoto(_recipeId: $_recipeId, photo: $photo)
+  }
+`;

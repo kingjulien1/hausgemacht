@@ -1,4 +1,4 @@
-const { gql } = require("apollo-server-express");
+const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   scalar Date
@@ -24,7 +24,7 @@ const typeDefs = gql`
     ): Ingredient
     deleteRecipe(_id: ID!): OperationResult
     deleteIngredient(_id: ID!, _recipeId: ID!): OperationResult
-    uploadPhoto(_recipeId: ID!, photo: File!): Photo
+    uploadPhoto(_recipeId: ID!, photo: Upload!): String!
   }
 
   type Recipe {
@@ -51,16 +51,17 @@ const typeDefs = gql`
     unit: Unit!
   }
 
-  type Photo {
-    filename: String!
-    encoding: String!
-  }
-
   type OperationResult {
     n: Int
     ok: Int
     deletedCount: Int
     updatedCount: Int
+  }
+
+  type Photo {
+    filename: String!
+    mimetype: String!
+    encoding: String!
   }
 
   enum Unit {
@@ -76,12 +77,6 @@ const typeDefs = gql`
     vegeterian
     pesceterian
     flexeterian
-  }
-
-  type File {
-    filename: String!
-    mimetype: String!
-    encoding: String!
   }
 `;
 module.exports = typeDefs;
