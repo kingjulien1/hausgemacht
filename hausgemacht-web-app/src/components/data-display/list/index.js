@@ -9,7 +9,7 @@ export const RecipeList = ({ ingredients, _recipeId }) => (
     footer={
       <Link to={`/recipes/${_recipeId}/ingredients`}>Zutaten Bearbeiten</Link>
     }
-    style={{ padding: 50 }}
+    style={{ padding: 50, paddingTop: 0 }}
     renderItem={ingredient => (
       <List.Item key={ingredient._id}>
         <List.Item.Meta

@@ -62,13 +62,16 @@ const resolvers = {
       //upload
       const photoURL = join(
         __dirname,
-        "../../hausgemacht-web-app/public/images/",
+        "../../hausgemacht-web-app/public/images",
         filename
       );
       await new Promise(res =>
         createReadStream().pipe(createWriteStream(photoURL).on("close", res))
       );
-      return photoURL;
+
+      await Recipe.findOneAndUpdate({ _id: _recipeId }, { photoURL: filename });
+
+      return filename;
     }
   }
 };

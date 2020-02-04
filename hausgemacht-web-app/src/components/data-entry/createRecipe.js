@@ -23,7 +23,7 @@ export default () => {
   const { push } = useHistory();
   const [createRecipe] = useMutation(CREATE_RECIPE, {
     onCompleted() {
-      push("/");
+      push("/recipes");
     },
     onError: notification.error
   });

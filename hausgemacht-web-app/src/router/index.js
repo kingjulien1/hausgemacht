@@ -6,12 +6,11 @@ import Ingredients from "../pages/Ingredients";
 import createRecipe from "../pages/createRecipe";
 import createIngredient from "../pages/createIngredient";
 import Recipe from "../pages/Recipe";
-import Home from "../pages/Home";
 
 export default () => {
   return (
     <Switch>
-      <Route path="/" exact component={Home}></Route>
+      <Route path="/" exact component={Recipes}></Route>
       <Route path="/recipes" exact component={Recipes}></Route>
       <Route path="/recipes/create" exact component={createRecipe}></Route>
       <Route

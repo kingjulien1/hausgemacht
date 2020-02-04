@@ -38,8 +38,9 @@ export default ({ _recipeId, photoURL }) => {
 
   return photoURL ? (
     <img
-      src={photoURL}
+      src={`${process.env.PUBLIC_URL}/images/${photoURL}`}
       alt={`unter dieser Url leider kein Bild gefunden`}
+      style={{ width: "100%", height: "20rem", objectFit: "cover" }}
     ></img>
   ) : (
     <Empty description="noch kein Bild hochgeladen.">

@@ -12,8 +12,8 @@ export default function Recipes() {
     <Layout style={{ backgroundColor: "white" }}>
       <Layout.Content>
         <PageHeader
-          title="Hausgemacht"
-          subTitle="ein Platz für Familienrezepte"
+          title="Rezepte"
+          subTitle="Hier sind alle Einträge aufgelistet"
         ></PageHeader>
         <RecipeTable
           loading={loading}
