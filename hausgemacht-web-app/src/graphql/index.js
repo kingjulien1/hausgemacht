@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import Switch from "../router";
 
 const cache = new InMemoryCache({ dataIdFromObject: o => o._id });
-const link = createUploadLink({ uri: "http://localhost:4000/graphql" });
+const link = createUploadLink({ uri: "http://192.168.0.134:4000/graphql" });
 
 const client = new ApolloClient({
   link,
